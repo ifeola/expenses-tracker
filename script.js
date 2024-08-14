@@ -1,6 +1,11 @@
 const tbody = document.querySelector("tbody");
 const form = document.querySelector("#tracker__form");
 
+let balance = 12_300_420.01;
+balance = new Intl.NumberFormat("en-US").format(balance);
+let balanceText = document.querySelector("#balance");
+balanceText.textContent = balance;
+
 class Expenses {
   constructor(category, amount, date, id) {
     this._category = category;
@@ -22,8 +27,9 @@ class UI {
   static addExpenses(expense, index) {
     // Adding Expenses
     const tRow = document.createElement("tr");
+    tRow.setAttribute("data-id", expense._id);
     tRow.innerHTML = `
-      <td id=${index}>0${index + 1}</td>
+      <td>0${index + 1}</td>
       <td>${expense._category}</td>
       <td>${expense._amount}</td>
       <td>${expense._date}</td>
@@ -61,12 +67,15 @@ class Store {
   }
 
   static deleteExpenses(target) {
-    let targetValue =
-      target.parentElement.parentElement.firstElementChild.attributes.id.value;
+    let targetId = target.parentElement.parentElement.dataset.id;
+
     const expensesArray = Store.getExpenses();
 
     expensesArray.forEach((expense, index) => {
-      if (targetValue === index) {
+      if (
+        targetId === String(expense._id) &&
+        target.classList.contains("delete-exp")
+      ) {
         expensesArray.splice(index, 1);
       }
     });
@@ -98,6 +107,8 @@ form.addEventListener("submit", (e) => {
   category.value = "";
   amount.value = "";
   date.value = "";
+
+  // Update balance
 });
 
 tbody.addEventListener("click", (e) => {
