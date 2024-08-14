@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expenses Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="wrapper-header">
+        <header id="header">
+          <h1>Expenses Tracker</h1>
+          <div class="header__wrapper">
+            <div class="header__content">
+              <h3>Welcome back, <span>Abayomi</span></h3>
+
+              <div class="header__balance">
+                <h4 class="balance__title">Balance:</h4>
+                <h2 class="balance">
+                  <svg
+                    id="Layer_1"
+                    data-name="Layer 1"
+                    viewBox="0 0 115.09 122.88">
+                    <title>nigeria-naira</title>
+                    <path
+                      d="M13.42,0H32.1a1.25,1.25,0,0,1,1,.6L58,42.26H83.17v-41A1.23,1.23,0,0,1,84.39,0h17.28a1.23,1.23,0,0,1,1.23,1.23v41h11a1.23,1.23,0,0,1,1.23,1.23V54.55a1.23,1.23,0,0,1-1.23,1.23h-11v9.41h11a1.23,1.23,0,0,1,1.23,1.22V77.48a1.23,1.23,0,0,1-1.23,1.22h-11v43a1.23,1.23,0,0,1-1.23,1.23H84.39a1.25,1.25,0,0,1-1-.6L58,78.7H33.26v43A1.23,1.23,0,0,1,32,122.88H13.42a1.23,1.23,0,0,1-1.23-1.23V78.7h-11A1.23,1.23,0,0,1,0,77.48V66.41a1.23,1.23,0,0,1,1.23-1.22h11V55.78h-11A1.23,1.23,0,0,1,0,54.55V43.49a1.23,1.23,0,0,1,1.23-1.23h11v-41A1.23,1.23,0,0,1,13.42,0ZM33.26,55.78v9.41h17l-4.4-9.41ZM70,65.19H83.17V55.78H65.68L70,65.19ZM83.17,78.7H77.88l5.29,11v-11ZM33.26,32.76v9.5h4.57l-4.57-9.5Z" />
+                  </svg>
+                  <span>2,700,160.00</span>
+                </h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="form">
+            <h4 class="tracker__title">Add Expenses</h4>
+            <form id="tracker__form">
+              <label for="category">
+                <span>Category</span>
+                <input
+                  type="text"
+                  name="category"
+                  id="category"
+                  required
+                  placeholder="Food and Beverage" />
+              </label>
+              <label for="amount">
+                <span>Amount</span>
+                <input
+                  type="number"
+                  name="amount"
+                  id="amount"
+                  required
+                  placeholder="20000" />
+              </label>
+              <label for="date">
+                <span>Date</span>
+                <input type="datetime-local" name="date" id="date" required />
+              </label>
+
+              <button type="submit" class="add-btn">Add Expenses</button>
+            </form>
+          </div>
+        </header>
+
+        <main>
+          <div class="tracker-wrapper">
+            <section class="traker__content">
+              <div class="table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>S/N</th>
+                      <th>Expenses Category</th>
+                      <th>Expenses Amount</th>
+                      <th>Expenses Date and Time</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+
+                  <tbody></tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
