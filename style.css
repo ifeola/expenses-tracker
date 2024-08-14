@@ -158,8 +158,11 @@ h4 {
 .tracker-wrapper {
   max-width: 1440px;
   width: 100%;
-  padding: 1.125rem 1.5rem;
   margin: 0 auto;
+}
+
+.form {
+  padding: 1.125rem 1.5rem;
 }
 
 .tracker__title {
@@ -242,6 +245,11 @@ td {
 th:nth-child(even),
 td:nth-child(even) {
   width: 35%;
+}
+
+td:nth-child(odd) {
+  text-align: right;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 th {

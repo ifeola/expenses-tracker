@@ -1,10 +1,10 @@
 const tbody = document.querySelector("tbody");
 const form = document.querySelector("#tracker__form");
-
-let balance = 12_300_420.01;
-balance = new Intl.NumberFormat("en-US").format(balance);
 let balanceText = document.querySelector("#balance");
-balanceText.textContent = balance;
+
+let myBalance = 240860;
+myBalance.toFixed(2);
+balanceText.textContent = myBalance;
 
 class Expenses {
   constructor(category, amount, date, id) {
@@ -12,39 +12,6 @@ class Expenses {
     this._amount = amount;
     this._date = date;
     this._id = id;
-  }
-}
-
-class UI {
-  static showExpenses() {
-    const expenses = Store.getExpenses();
-
-    expenses.forEach((expense, index) => {
-      UI.addExpenses(expense, index);
-    });
-  }
-
-  static addExpenses(expense, index) {
-    // Adding Expenses
-    const tRow = document.createElement("tr");
-    tRow.setAttribute("data-id", expense._id);
-    tRow.innerHTML = `
-      <td>0${index + 1}</td>
-      <td>${expense._category}</td>
-      <td>${expense._amount}</td>
-      <td>${expense._date}</td>
-      <td><button class='delete-exp'>Delete</button></td>
-    `;
-    tbody.appendChild(tRow);
-  }
-
-  static deleteExpenses(target) {
-    if (!target.classList.contains("delete-exp")) return;
-    else {
-      const row = target.parentElement.parentElement;
-      const rowParent = target.parentElement.parentElement.parentElement;
-      rowParent.removeChild(row);
-    }
   }
 }
 
@@ -81,6 +48,57 @@ class Store {
     });
     localStorage.setItem("expensesArray", JSON.stringify(expensesArray));
   }
+
+  // static setBalance(balance) {
+  //   let localBalance;
+
+  //   if (localStorage.getItem("localBalance") === null) {
+  //     localBalance = "";
+  //   } else {
+  //     JSON.parse(localStorage.getItem("localBalance"));
+  //   }
+
+  //   return localBalance;
+  // }
+}
+
+class UI {
+  static showExpenses() {
+    const expenses = Store.getExpenses();
+    expenses.forEach((expense) => {
+      UI.addExpenses(expense);
+    });
+  }
+
+  static addExpenses(expense) {
+    // Adding Expenses
+    const tRow = document.createElement("tr");
+    tRow.setAttribute("data-id", expense._id);
+    tRow.innerHTML = `
+        <td>${expense._id}</td>
+        <td>${expense._category}</td>
+        <td>${expense._amount}</td>
+        <td>${expense._date} </td>
+        <td><button class='delete-exp'>Delete</button></td>
+      `;
+    tbody.appendChild(tRow);
+  }
+
+  static deleteExpenses(target) {
+    if (!target.classList.contains("delete-exp")) return;
+    else {
+      const row = target.parentElement.parentElement;
+      const rowParent = target.parentElement.parentElement.parentElement;
+      rowParent.removeChild(row);
+    }
+  }
+
+  static updateBalance(amount) {
+    let total = balanceText.textContent - amount;
+    // total = new Intl.NumberFormat("en-US").format(total);
+    balanceText.textContent = total;
+    // Store.setBalance(balanceText.textContent);
+  }
 }
 
 form.addEventListener("submit", (e) => {
@@ -96,10 +114,11 @@ form.addEventListener("submit", (e) => {
   let dateValue = date.value;
 
   // Generate random ID anytime we submit
-  const id = Math.floor(Math.random() * 1000000000 + 1);
+  const id = Math.floor(Math.random() * 10000 + 1);
 
   // Everytime we submit, we add new expenses to the UI
   const expenses = new Expenses(categoryValue, amountValue, dateValue, id);
+
   UI.addExpenses(expenses);
   Store.addExpenses(expenses);
 
@@ -109,6 +128,7 @@ form.addEventListener("submit", (e) => {
   date.value = "";
 
   // Update balance
+  UI.updateBalance(amountValue);
 });
 
 tbody.addEventListener("click", (e) => {
